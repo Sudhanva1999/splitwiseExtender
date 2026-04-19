@@ -23,6 +23,9 @@ const BillUploader = ({ users }) => {
   // Complex split popover state
   const [complexSplitItem, setComplexSplitItem] = useState(null);
   
+  // Manual entry mode (skip image upload)
+  const [manualMode, setManualMode] = useState(false);
+
   // Splitwise integration
   const [currentUser, setCurrentUser] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -298,6 +301,15 @@ const BillUploader = ({ users }) => {
     }
   };
 
+  const handleEnterManual = () => {
+    setManualMode(true);
+    setStoreName('Manual Entry');
+    setItems([]);
+    setItemSplits({});
+    setQuickSplitSelections({});
+    setError(null);
+  };
+
   const handleReset = () => {
     setSelectedFile(null);
     setPreviewUrl(null);
@@ -307,14 +319,17 @@ const BillUploader = ({ users }) => {
     setError(null);
     setProgress(null);
     setStoreName('');
+    setManualMode(false);
+    setSubmitResults(null);
+    setPayerId(null);
   };
 
   return (
     <div className="bill-uploader-container">
-      {items.length === 0 && (
+      {!manualMode && items.length === 0 && (
         <>
           <h2>Upload Receipt</h2>
-          
+
           <div className="upload-section">
             <input
               type="file"
@@ -326,12 +341,23 @@ const BillUploader = ({ users }) => {
             <label htmlFor="file-input" className="file-label">
               {selectedFile ? 'Change Image' : 'Select Image'}
             </label>
-            
+
             {selectedFile && (
               <div className="file-info">
                 <span>📄 {selectedFile.name}</span>
               </div>
             )}
+          </div>
+
+          <div className="manual-entry-divider">
+            <span>or</span>
+          </div>
+
+          <div className="manual-entry-section">
+            <button className="manual-entry-btn" onClick={handleEnterManual}>
+              Enter Items Manually
+            </button>
+            <p className="manual-entry-hint">Skip the receipt scan and add items directly</p>
           </div>
 
           {previewUrl && (
@@ -367,10 +393,10 @@ const BillUploader = ({ users }) => {
         </>
       )}
 
-      {items.length > 0 && (
+      {(items.length > 0 || manualMode) && (
         <div className="items-editor">
           <div className="items-header">
-            <h2>Items from {storeName}</h2>
+            <h2>{manualMode && items.length === 0 ? 'Add Items Manually' : `Items from ${storeName}`}</h2>
             <div className="header-controls">
               <div className="payer-selector">
                 <label htmlFor="payer-select">Who Paid?</label>
@@ -389,7 +415,7 @@ const BillUploader = ({ users }) => {
                 </select>
               </div>
               <button className="reset-btn" onClick={handleReset}>
-                Upload New Receipt
+                {manualMode ? 'Back to Upload' : 'Upload New Receipt'}
               </button>
             </div>
           </div>
@@ -524,7 +550,7 @@ const BillUploader = ({ users }) => {
                 </div>
               )}
               <button className="reset-btn" onClick={handleReset}>
-                Process Another Receipt
+                {manualMode ? 'Start Over' : 'Process Another Receipt'}
               </button>
             </div>
           )}
