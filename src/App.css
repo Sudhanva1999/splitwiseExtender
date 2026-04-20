@@ -4,90 +4,144 @@
   padding: 0;
 }
 
+/* ─── Page Shell ──────────────────────────────────────── */
+
 .app-container {
-  padding: 24px 20px;
   min-height: 100vh;
-  background-color: #f1f5f9;
+  padding: 44px 24px 56px;
+  box-sizing: border-box;
+  width: 100%;
+  /* Hard-code background so system dark mode can't change it */
+  background-color: #f5f4fe;
+  background-image: radial-gradient(
+    ellipse 120% 40% at 50% 0%,
+    rgba(99, 102, 241, 0.1),
+    transparent 55%
+  );
 }
 
-.app-container h1 {
+/* ─── Title ───────────────────────────────────────────── */
+
+.app-container > h1 {
   text-align: center;
-  color: #0f172a;
-  margin-bottom: 24px;
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+  /* Gradient text — forced on all browsers */
+  background: linear-gradient(135deg, #6366f1 0%, #7c3aed 55%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Loading State */
+/* ─── Loading ─────────────────────────────────────────── */
+
 .loading-container {
-  text-align: center;
-  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px;
+  gap: 18px;
 }
 
 .spinner {
-  width: 50px;
-  height: 50px;
-  margin: 0 auto 20px;
-  border: 4px solid #e2e8f0;
-  border-top: 4px solid #4f46e5;
+  width: 42px;
+  height: 42px;
+  border: 3px solid #ede9fe;
+  border-top-color: #6366f1;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.85s linear infinite;
+  flex-shrink: 0;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-container p {
-  color: #475569;
-  font-size: 16px;
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
 }
 
-/* Warning Message */
+/* ─── Warning Banner ──────────────────────────────────── */
+
 .warning-message {
-  max-width: 800px;
+  max-width: 720px;
   margin: 0 auto 20px;
-  padding: 15px 20px;
+  padding: 14px 18px;
   background: #fffbeb;
-  border: 2px solid #f59e0b;
-  border-radius: 8px;
-  color: #92400e;
-  text-align: left;
+  border: 1.5px solid #fcd34d;
+  border-radius: 12px;
+  color: #78350f;
+  font-size: 14px;
 }
 
 .warning-message strong {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .warning-message small {
   display: block;
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 12px;
-  opacity: 0.9;
+  color: #92400e;
+  opacity: 0.85;
 }
 
-/* Users Info */
+/* ─── Group Members Pill ──────────────────────────────── */
+
 .users-info {
+  display: block;
   text-align: center;
-  margin-bottom: 20px;
-  padding: 10px 16px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-radius: 8px;
-  color: #1d4ed8;
-  font-size: 14px;
-  font-weight: 500;
+  max-width: fit-content;
+  margin: 0 auto 28px;
+  padding: 7px 20px;
+  background: rgba(99, 102, 241, 0.06);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4f46e5;
+  letter-spacing: 0.01em;
 }
+
+/* ─── Responsive ──────────────────────────────────────── */
 
 @media (max-width: 768px) {
-  .app-container h1 {
+  .app-container {
+    padding: 28px 16px 40px;
+  }
+
+  .app-container > h1 {
     font-size: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  .warning-message {
+    font-size: 13px;
   }
 
   .users-info {
     font-size: 12px;
+    padding: 6px 16px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 20px 12px 32px;
+  }
+
+  .app-container > h1 {
+    font-size: 23px;
+    letter-spacing: -0.3px;
   }
 }

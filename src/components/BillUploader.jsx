@@ -435,7 +435,7 @@ const BillUploader = ({ users }) => {
               <tbody>
                 {items.map((item, idx) => (
                   <tr key={item.id}>
-                    <td>
+                    <td data-label="Item Name">
                       <input
                         type="text"
                         value={item.itemName}
@@ -443,7 +443,7 @@ const BillUploader = ({ users }) => {
                         className="item-input"
                       />
                     </td>
-                    <td>
+                    <td data-label="Qty">
                       <input
                         type="number"
                         step="0.01"
@@ -452,7 +452,7 @@ const BillUploader = ({ users }) => {
                         className="item-input qty-input"
                       />
                     </td>
-                    <td>
+                    <td data-label="Price">
                       <input
                         type="number"
                         step="0.01"
@@ -461,7 +461,7 @@ const BillUploader = ({ users }) => {
                         className="item-input price-input"
                       />
                     </td>
-                    <td>
+                    <td data-label="Quick Split">
                       <div className="quick-split-cell">
                         {users.map(user => (
                           <label key={user.id} className="user-checkbox-label">
@@ -481,7 +481,7 @@ const BillUploader = ({ users }) => {
                         </button>
                       </div>
                     </td>
-                    <td>
+                    <td data-label="Status">
                       {itemSplits[item.id] ? (
                         <div className="split-status">
                           <span className="split-done">✓ Split</span>
@@ -500,7 +500,7 @@ const BillUploader = ({ users }) => {
                         <span className="split-pending">Not split</span>
                       )}
                     </td>
-                    <td>
+                    <td data-label="Actions">
                       <div className="action-buttons">
                         <button
                           className="complex-split-btn"

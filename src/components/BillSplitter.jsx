@@ -267,10 +267,10 @@ const BillSplitter = ({ totalAmount, users, onClose, onSplit }) => {
             })}
           </div>
 
-          <div className="popover-footer">
-            <button className="cancel-btn" onClick={onClose}>Cancel</button>
-            <button className="split-btn" onClick={calculateSplit}>Split Bill</button>
-          </div>
+        </div>
+        <div className="popover-footer">
+          <button className="cancel-btn" onClick={onClose}>Cancel</button>
+          <button className="split-btn" onClick={calculateSplit}>Split Bill</button>
         </div>
       </div>
     </div>
